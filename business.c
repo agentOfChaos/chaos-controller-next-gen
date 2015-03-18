@@ -188,7 +188,11 @@ int working_loop()
         }
     wait(NULL);
     read_registers(target_pid,&regs);
+    #ifdef MACHINE64
     regs.rip=target_offset-4;
+    #else
+    regs.eip=target_offset-4;
+    #endif
     write_registers(target_pid,&regs);
     //pause_pid(target_pid);
     opera_mem(target_pid,SCRIVI,target_offset-4,backup_0,14); // restore call instruction
