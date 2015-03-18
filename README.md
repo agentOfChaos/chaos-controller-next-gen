@@ -24,3 +24,7 @@ Ctrl-C will prompt it to quit gracefully; pressing Ctrl-C again will stop it abr
 Help
 -------
 $ ccnxt --help
+
+Notes
+------
+32-bit support is currently *not* working, x86_64 is fine.
