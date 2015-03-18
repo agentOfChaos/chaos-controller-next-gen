@@ -121,11 +121,19 @@ void working_step(struct user_regs_struct *regs)
     else
         {
         opera_mem(target_pid,SCRIVI,target_offset,inject_mov,5); // inject num assignation
+        #ifdef MACHINE64
         opera_mem(target_pid,LEGGI,target_offset-4,sonda,15);
+        #else
+        opera_mem(target_pid,LEGGI,target_offset-3,sonda,13);
+        #endif
         if (verbose>1)
             {
             printf("Dump istruzioni: ");
+            #ifdef MACHINE64
             printbytes(sonda,15);
+            #else
+            printbytes(sonda,13);
+            #endif
             if (monmode)
                 {
                 printf(" number: %d",estrai);
@@ -148,7 +156,11 @@ void doquit(int signum)
         {
         printf(" Forcing termination.\n");
         pause_pid(target_pid);
+        #ifdef MACHINE64
         opera_mem(target_pid,SCRIVI,target_offset-4,backup_0,14); // restore call instruction
+        #else
+        opera_mem(target_pid,SCRIVI,target_offset-3,backup_0,12); // restore call instruction
+        #endif
         target_go_on(target_pid);
         detach(target_pid);
         exit(0);
@@ -157,7 +169,7 @@ void doquit(int signum)
 int working_loop()
 {
     char sonda[30];
-    char breakpoint[]={0xcd,0x80,0xcc,0x90,0x90};
+    char breakpoint[]={0xcd,0x80,0xcc,0x90};
     char noppad[]={0x90,0x90,0x90,0x90};
     struct user_regs_struct regs;
     if(attach_n_stop(target_pid)==-1) return -1;
@@ -170,7 +182,7 @@ int working_loop()
         printf("\n");
         fflush(stdout);
         }
-    opera_mem(target_pid,SCRIVI,target_offset-4,breakpoint,4); // create first breakpoint
+    opera_mem(target_pid,SCRIVI,target_offset-4,breakpoint,4); // create breakpoint
     opera_mem(target_pid,SCRIVI,target_offset+5,noppad,4);
     if (verbose>1)
         {
@@ -201,6 +213,60 @@ int working_loop()
         opera_mem(target_pid,LEGGI,target_offset-4,sonda,14);
         printf("restored: ");
         printbytes(sonda,14);
+        printf("\n");
+        fflush(stdout);
+        }
+    target_go_on(target_pid);
+    detach(target_pid);
+    return 1;
+}
+int working_loop32()
+{
+    char sonda[30];
+    char breakpoint[]={0xcd,0x80,0xcc};
+    char noppad[]={0x90,0x90,0x90};
+    struct user_regs_struct regs;
+    if(attach_n_stop(target_pid)==-1) return -1;
+    if (verbose>0) {printf("Success attaching %d\n",target_pid); fflush(stdout);}
+    opera_mem(target_pid,LEGGI,target_offset-3,backup_0,12); // backup call instruction
+    if (verbose>1)
+        {
+        printf("backed up original 'callq': ");
+        printbytes(backup_0,12);
+        printf("\n");
+        fflush(stdout);
+        }
+    opera_mem(target_pid,SCRIVI,target_offset-3,breakpoint,3); // create breakpoint
+    opera_mem(target_pid,SCRIVI,target_offset+5,noppad,3);
+    if (verbose>1)
+        {
+        opera_mem(target_pid,LEGGI,target_offset-3,sonda,12);
+        printf("new value: ");
+        printbytes(sonda,12);
+        printf("\n");
+        fflush(stdout);
+        }
+    target_go_on(target_pid); // run target process
+    if (verbose>1) {printf("Resuming %d\n",target_pid); fflush(stdout);}
+    while (!quit)
+        {
+        working_step(&regs);
+        }
+    wait(NULL);
+    read_registers(target_pid,&regs);
+    #ifdef MACHINE64
+    regs.rip=target_offset-3;
+    #else
+    regs.eip=target_offset-3;
+    #endif
+    write_registers(target_pid,&regs);
+    //pause_pid(target_pid);
+    opera_mem(target_pid,SCRIVI,target_offset-3,backup_0,12); // restore call instruction
+    if (verbose>1)
+        {
+        opera_mem(target_pid,LEGGI,target_offset-3,sonda,12);
+        printf("restored: ");
+        printbytes(sonda,12);
         printf("\n");
         fflush(stdout);
         }
