@@ -27,7 +27,7 @@ LIB_DEBUG = $(LIB)
 LDFLAGS_DEBUG = $(LDFLAGS) -ldl
 OBJDIR_DEBUG = obj/Debug
 DEP_DEBUG = 
-OUT_DEBUG = /ccnxt
+OUT_DEBUG = bin/Debug/ccnxt
 
 INC_RELEASE = $(INC)
 CFLAGS_RELEASE = $(CFLAGS) -O2
@@ -35,7 +35,7 @@ RESINC_RELEASE = $(RESINC)
 RCFLAGS_RELEASE = $(RCFLAGS)
 LIBDIR_RELEASE = $(LIBDIR)
 LIB_RELEASE = $(LIB)
-LDFLAGS_RELEASE = $(LDFLAGS) -s
+LDFLAGS_RELEASE = $(LDFLAGS) -s -ldl
 OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/ccnxt
@@ -49,6 +49,7 @@ all: debug release
 clean: clean_debug clean_release
 
 before_debug: 
+	test -d bin/Debug || mkdir -p bin/Debug
 	test -d $(OBJDIR_DEBUG) || mkdir -p $(OBJDIR_DEBUG)
 
 after_debug: 
@@ -81,6 +82,7 @@ $(OBJDIR_DEBUG)/offset_finder.o: offset_finder.c
 
 clean_debug: 
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
+	rm -rf bin/Debug
 	rm -rf $(OBJDIR_DEBUG)
 
 before_release: 

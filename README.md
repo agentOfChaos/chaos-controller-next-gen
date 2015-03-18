@@ -7,6 +7,12 @@ The major difference is that now you can inject a _list_ of numbers, instead of 
   
 The other difference is that this program will run alongside the target ( it works just like a debugger ), while the older version is "fire and forget"  
 
+Building
+-------
+From the source's root:
+$ make  
+The code::blocks project file is included as well.
+
 Running
 -------
 sudo ccnxt -p [target pid] [list of space separated numbers]...
