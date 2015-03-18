@@ -228,11 +228,11 @@ int working_loop32()
     struct user_regs_struct regs;
     if(attach_n_stop(target_pid)==-1) return -1;
     if (verbose>0) {printf("Success attaching %d\n",target_pid); fflush(stdout);}
-    opera_mem(target_pid,LEGGI,target_offset-3,backup_0,12); // backup call instruction
+    opera_mem(target_pid,LEGGI,target_offset-3,backup_0,11); // backup call instruction
     if (verbose>1)
         {
         printf("backed up original 'callq': ");
-        printbytes(backup_0,12);
+        printbytes(backup_0,11);
         printf("\n");
         fflush(stdout);
         }
@@ -240,9 +240,9 @@ int working_loop32()
     opera_mem(target_pid,SCRIVI,target_offset+5,noppad,3);
     if (verbose>1)
         {
-        opera_mem(target_pid,LEGGI,target_offset-3,sonda,12);
+        opera_mem(target_pid,LEGGI,target_offset-3,sonda,11);
         printf("new value: ");
-        printbytes(sonda,12);
+        printbytes(sonda,11);
         printf("\n");
         fflush(stdout);
         }
@@ -261,10 +261,10 @@ int working_loop32()
     #endif
     write_registers(target_pid,&regs);
     //pause_pid(target_pid);
-    opera_mem(target_pid,SCRIVI,target_offset-3,backup_0,12); // restore call instruction
+    opera_mem(target_pid,SCRIVI,target_offset-3,backup_0,11); // restore call instruction
     if (verbose>1)
         {
-        opera_mem(target_pid,LEGGI,target_offset-3,sonda,12);
+        opera_mem(target_pid,LEGGI,target_offset-3,sonda,11);
         printf("restored: ");
         printbytes(sonda,12);
         printf("\n");

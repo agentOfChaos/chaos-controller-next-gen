@@ -69,21 +69,21 @@ int opera_mem(pid_t target, int mode, long addr, unsigned char *bytes, int numby
 
     if (mode==SCRIVI)
         {
-        startcopy=(numbytes/8)*8; // arrotonda a 8
-        endpadd=(numbytes%8 == 0 ? startcopy : startcopy+8); // arrotonda a 8 per eccesso
+        startcopy=(numbytes/DATAWORD)*DATAWORD; // arrotonda a 8
+        endpadd=(numbytes%DATAWORD == 0 ? startcopy : startcopy+DATAWORD); // arrotonda a 8 per eccesso
         //printf("addr startcopy endpadd = %ld %ld %ld\n",addr,startcopy,endpadd); fflush(stdout);
 
-        getdata(target, addr+startcopy, buff, 8); // workaround for ptrace writing only blocks of 8 bytes
-        for (cont=0; cont<numbytes%8; cont++)
+        getdata(target, addr+startcopy, buff, DATAWORD); // workaround for ptrace writing only blocks of 8 bytes
+        for (cont=0; cont<numbytes%DATAWORD; cont++)
             {
             buff[cont]=bytes[startcopy+cont];
             }
         //printf("\n> "); printbytes(buff,8); printf("\n");
         //printf("addr startcopy endpadd = %ld %ld %ld %ld\n",addr,startcopy,endpadd,cont); fflush(stdout);
-        for (cont=0; cont<endpadd/8; cont++) // writes 8 byte blocks per cycle
+        for (cont=0; cont<endpadd/DATAWORD; cont++) // writes 8 byte blocks per cycle
             {
-            if (cont==(startcopy/8)){putdata(target,(cont*8)+addr,buff,8);}
-            else {putdata(target,(cont*8)+addr,bytes+(cont*8),8);}
+            if (cont==(startcopy/DATAWORD)){putdata(target,(cont*DATAWORD)+addr,buff,DATAWORD);}
+            else {putdata(target,(cont*DATAWORD)+addr,bytes+(cont*DATAWORD),DATAWORD);}
             }
         return 1;
         }
@@ -94,11 +94,11 @@ int opera_mem(pid_t target, int mode, long addr, unsigned char *bytes, int numby
             bytes=(unsigned char*)malloc(sizeof(char)*numbytes);
             if (bytes==NULL) return 0;
             }
-        for (cont=0; cont<(numbytes%8 == 0 ? numbytes/8 : (numbytes/8)+1); cont++)
+        for (cont=0; cont<(numbytes%DATAWORD == 0 ? numbytes/DATAWORD : (numbytes/DATAWORD)+1); cont++)
             {
-            getdata(target, addr+(cont*8), buff, 8);
-            if (cont>numbytes)memcpy(bytes+(cont*8),buff,(numbytes%8));
-            else memcpy(bytes+(cont*8),buff,8);
+            getdata(target, addr+(cont*DATAWORD), buff, DATAWORD);
+            if (cont>numbytes)memcpy(bytes+(cont*DATAWORD),buff,(numbytes%DATAWORD));
+            else memcpy(bytes+(cont*DATAWORD),buff,DATAWORD);
             }
         return 1;
         }
