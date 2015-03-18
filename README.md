@@ -9,7 +9,7 @@ The other difference is that this program will run alongside the target ( it wor
 
 Running
 -------
-# ccnxt -p [target pid] [list of space separated numbers]...
+sudo ccnxt -p [target pid] [list of space separated numbers]...
 
 Stopping
 -------
