@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ccnxt" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="ccnxt" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-ldl" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ccnxt" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="artiglio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="business.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cmdline.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="constants.h" />
+		<Unit filename="func_finder.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="global_vars.h" />
+		<Unit filename="injection.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="offset_finder.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="prototypes.h" />
+		<Unit filename="structures.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

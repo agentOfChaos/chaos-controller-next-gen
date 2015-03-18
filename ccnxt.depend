@@ -1,0 +1,80 @@
+# depslib dependency file v1.0
+1399978388 source:/home/michele/Programmi_linux/chaos_controller_nxt/cmdline.c
+	<stdio.h>
+	<stdlib.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+
+1399831309 /home/michele/Programmi_linux/chaos_controller_nxt/structures.h
+	"constants.h"
+
+1425820906 /home/michele/Programmi_linux/chaos_controller_nxt/constants.h
+
+1399978188 /home/michele/Programmi_linux/chaos_controller_nxt/global_vars.h
+
+1399915473 /home/michele/Programmi_linux/chaos_controller_nxt/prototypes.h
+
+1426676026 source:/home/michele/Programmi_linux/chaos_controller_nxt/injection.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/ptrace.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/user.h>
+	<errno.h>
+	<signal.h>
+	<linux/limits.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+
+1426676099 source:/home/michele/Programmi_linux/chaos_controller_nxt/offset_finder.c
+	<stdio.h>
+	<stdlib.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+
+1425820892 source:/home/michele/Programmi_linux/chaos_controller_nxt/main.c
+	<stdio.h>
+	<stdlib.h>
+	<signal.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+
+1399915344 source:/home/michele/Programmi_linux/chaos_controller_nxt/artiglio.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/ptrace.h>
+	<sys/types.h>
+	<sys/wait.h>
+	<unistd.h>
+	<sys/user.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+
+1399821842 source:/home/michele/Programmi_linux/chaos_controller_nxt/func_finder.c
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<fcntl.h>
+	<stdarg.h>
+	<unistd.h>
+	<sys/stat.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+
+1399978803 source:/home/michele/Programmi_linux/chaos_controller_nxt/business.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/user.h>
+	<sys/types.h>
+	<sys/wait.h>
+	"structures.h"
+	"global_vars.h"
+	"prototypes.h"
+

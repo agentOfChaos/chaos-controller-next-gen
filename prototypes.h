@@ -1,0 +1,11 @@
+void getdata(pid_t child, long addr,char *str, int len);
+void putdata(pid_t child, long addr,char *str, int len);
+int opera_mem(pid_t target, int mode, long addr, unsigned char *bytes, int numbytes);
+int parse_cmdline(int argc, char *argv[]);
+unsigned long long readlines(FILE *apri,char *buff);
+unsigned long long getOffset(pid_t pid);
+unsigned long long int nosce_te_ipsum();
+void printbytes(char *b,int len);
+void working_step(struct user_regs_struct *regs);
+int working_loop();
+void doquit(int signum);
